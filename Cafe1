@@ -1,0 +1,57 @@
+#include <iostream>
+#include <string>
+#include <vector>
+
+class Item
+{
+public:
+	std::string name;
+	float price;
+};
+class Cafe
+{
+public:
+	std::vector<Item> menu;
+};
+
+void Order(Cafe c)
+{
+	for (Item i : c.menu)
+	{
+		std::cout << i.name << " " << i.price << "\n";
+	}
+	std::cout << "All sales are final";
+	std::string order;
+	int amount;
+	std::cin >> order >> amount;
+
+	float total;
+	for (Item i : c.menu)
+	{
+		if (i.name == order)
+		{
+			total = i.price * amount;
+		}
+	}
+	std::cout << amount << " " << order << " will be $" << total;
+
+
+
+}
+
+int main()
+{
+    Item coffee = Item();
+	coffee.name = "coffee";
+	coffee.price = 2.50;
+
+	Item sandwitch = Item();
+	sandwitch.name = "sandwitch";
+	sandwitch.price = 3.00;
+
+	Cafe cafe = Cafe();
+	cafe.menu.push_back(coffee);
+	cafe.menu.push_back(sandwitch);
+
+	Order(cafe);
+}
