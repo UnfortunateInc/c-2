@@ -1,0 +1,101 @@
+#include <iostream>
+#include <string>
+#include <vector>
+
+class Item
+{
+public:
+	std::string name;
+	float price;
+};
+class Cafe
+{
+public:
+	std::vector<Item> menu;
+};
+
+void Order(Cafe c)
+{
+	for (Item i : c.menu)
+	{
+		std::cout << i.name << " " << i.price << "\n";
+	}
+	std::cout << "All sales are final \n";
+	std::string order;
+	int amount;
+	std::cin >> order >> amount;
+
+	float total;
+	for (Item i : c.menu)
+	{
+		if (i.name == order)
+		{
+			total = i.price * amount;
+		}
+	}
+	std::cout << amount << " " << order << " will be $" << total << "\n";
+
+	//Payment
+	std::cout << "Will you be paying with a 5, 10, or 20$ bill? \n";
+	float payment;
+    std::cin >> payment;
+	float totalChange = payment - total;
+	float tChange = totalChange;
+	//Dollar Change
+	int dChange = 0;
+	while (tChange >= 1)
+	{
+		dChange++;
+		tChange--;
+	}
+	//Quarter Change
+	int qChange = 0;
+	while (tChange >= .25)
+	{
+		qChange++;
+		tChange = tChange - 0.25;
+	}
+	//Dime Change
+	int diChange = 0;
+	while (tChange >= .1)
+	{
+		diChange++;
+		tChange = tChange - 0.1;
+	}
+	//Nickel Change
+	int nChange = 0;
+	while (tChange >= .05)
+	{
+		nChange++;
+		tChange = tChange - 0.05;
+	}
+	//Penny Change
+	int pChange = 0;
+	while (tChange >= .01)
+	{
+		pChange++;
+		tChange = tChange - 0.01;
+	}
+
+	//Display Change
+	std::cout << "Your change is " << totalChange << "\n";
+	std::cout << dChange << " dollars " << qChange << " quarters " << dChange << " dimes " << nChange << " nickles and " << pChange << " pennies ";
+
+}
+
+int main()
+{
+    Item coffee = Item();
+	coffee.name = "coffee";
+	coffee.price = 2.50;
+
+	Item sandwitch = Item();
+	sandwitch.name = "sandwitch";
+	sandwitch.price = 3.75;
+
+	Cafe cafe = Cafe();
+	cafe.menu.push_back(coffee);
+	cafe.menu.push_back(sandwitch);
+
+	Order(cafe);
+}
